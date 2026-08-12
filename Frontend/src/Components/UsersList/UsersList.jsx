@@ -1,25 +1,26 @@
-import toast from "react-hot-toast"
+import toast from "react-hot-toast";
 import { useState } from "react";
-import {deleteUser} from "../../Service/UserService";
+import { deleteUser } from "../../Service/UserService";
+import { useNavigate } from "react-router-dom";
 
-
-const UsersList = ({users,setUsers}) => {
+const UsersList = ({ users, setUsers, setSelectedUser }) => {
   const [searchItem, setSearchItem] = useState("");
-  const filteredUsers = users.filter(user =>
+  const filteredUsers = users.filter((user) =>
     user.name.toLowerCase().includes(searchItem.toLowerCase())
   );
 
-  const deleteByUserId = async(id) => {
-    try{
-        await deleteUser(id);
-        setUsers(prevUsers => prevUsers.filter(user => user.userId !== id));
-        toast.success("User deleted");
-    }catch(e){
-        console.error(e);
-        toast.error("Unable to delete user");
+  const navigate = useNavigate();
 
+  const deleteByUserId = async (id) => {
+    try {
+      await deleteUser(id);
+      setUsers((prevUsers) => prevUsers.filter((user) => user.userId !== id));
+      toast.success("User deleted");
+    } catch (e) {
+      console.error(e);
+      toast.error("Unable to delete user");
     }
-  }
+  };
   return (
     <div
       className="category-list-container"
@@ -46,8 +47,7 @@ const UsersList = ({users,setUsers}) => {
         </div>
       </div>
       <div className="row g-3 pe-2">
-        {
-        filteredUsers.map((user, index) => (
+        {filteredUsers.map((user, index) => (
           <div key={index} className="col-12">
             <div className="card p-3 bg-dark">
               <div className="d-flex align-items-center">
@@ -55,8 +55,25 @@ const UsersList = ({users,setUsers}) => {
                   <h5 className="mb-1 text-white">{user.name}</h5>
                   <p className="mb-0 text-white">{user.email}</p>
                 </div>
-                <div>
-                  <button className="btn btn-danger btn-sm" onClick={() => deleteByUserId(user.userId)}>
+                <div className="d-flex gap-2">
+                  <button
+                    className="btn btn-primary btn-sm"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setSelectedUser(user);
+                    }}
+                    title="Update user"
+                  >
+                    <i className="bi bi-pencil"></i>
+                  </button>
+                  <button
+                    className="btn btn-danger btn-sm"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      deleteByUserId(user.userId);
+                    }}
+                    title="Delete user"
+                  >
                     <i className="bi bi-trash"></i>
                   </button>
                 </div>

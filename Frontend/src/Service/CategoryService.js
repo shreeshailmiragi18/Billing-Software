@@ -1,16 +1,49 @@
-import axios from 'axios';
+import axios from "axios";
 
+export const addCategory = async (category) => {
+  return await axios.post(
+    "http://localhost:8080/api/v1.0/admin/categories",
+    category,
+    { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
+  );
+};
 
-export const addCategory=async(category)=>{
-   return await axios.post('http://localhost:8080/api/v1.0/admin/categories',category,{headers: {'Authorization': `Bearer ${localStorage.getItem("token")}`}});
-}
+export const deleteCategory = async (categoryId) => {
+  return await axios.delete(
+    `http://localhost:8080/api/v1.0/admin/categories/${categoryId}`,
+    { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
+  );
+};
 
+export const fetchCategories = async () => {
+  return await axios.get("http://localhost:8080/api/v1.0/categories", {
+    headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+  });
+};
 
-export const deleteCategory=async(categoryId)=>{
-    return await axios.delete(`http://localhost:8080/api/v1.0/admin/categories/${categoryId}`,{headers: {'Authorization': `Bearer ${localStorage.getItem("token")}`}});
-}
-
-
-export const fetchCategories=async()=>{
-    return await axios.get('http://localhost:8080/api/v1.0/categories',{headers: {'Authorization': `Bearer ${localStorage.getItem("token")}`}});
-}  
+export const updateCategory = async (categoryId, category) => {
+  const token = localStorage.getItem("token");
+  // For multipart/form-data, let axios set the Content-Type (including boundary).
+  if (category instanceof FormData) {
+    const headers = {
+      Authorization: `Bearer ${token}`,
+      Accept: "application/json",
+    };
+    return await axios.put(
+      `http://localhost:8080/api/v1.0/admin/categories/${categoryId}`,
+      category,
+      { headers }
+    );
+  }
+  // For JSON payloads
+  const headers = {
+    Authorization: `Bearer ${token}`,
+    "Content-Type": "application/json",
+    Accept: "application/json",
+  };
+  return await axios.put(
+    `http://localhost:8080/api/v1.0/admin/categories/${categoryId}`,
+    category,
+    { headers }
+  );
+};

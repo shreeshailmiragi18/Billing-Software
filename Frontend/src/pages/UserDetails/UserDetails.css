@@ -1,0 +1,6 @@
+.user-details img {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+.user-details pre {
+  color: #e9ecef;
+}

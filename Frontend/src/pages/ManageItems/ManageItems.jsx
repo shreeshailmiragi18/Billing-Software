@@ -1,19 +1,23 @@
-import ItemForm from '../../Components/ItemForm/ItemForm';
-import ItemList from '../../Components/ItemList/ItemList';
-import './ManageItems.css';
+import { useState } from "react";
+import ItemForm from "../../Components/ItemForm/ItemForm";
+import ItemList from "../../Components/ItemList/ItemList";
+import "./ManageItems.css";
 
 const ManageItems = () => {
-    return(
-        <div className="items-container text-light">
-        <div className="left-column">
-           <ItemForm />
+  const [selectedItem, setSelectedItem] = useState(null);
+  return (
+    <div className="items-container text-light">
+      <div className="left-column">
+        <ItemForm
+          selectedItem={selectedItem}
+          setSelectedItem={setSelectedItem}
+        />
+      </div>
+      <div className="right-column">
+        <ItemList setSelectedItem={setSelectedItem} />
+      </div>
+    </div>
+  );
+};
 
-        </div>
-        <div className="right-column">
-           <ItemList />
-        </div>
-       </div>
-    );
-}
-
-export default ManageItems;  
+export default ManageItems;
