@@ -9,7 +9,7 @@ export const addItem = async (item) => {
 export const deleteItem = async (itemId) => {
   return await axios.delete(
     `http://localhost:8080/api/v1.0/admin/items/${itemId}`,
-    { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
+    { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } },
   );
 };
 
@@ -29,7 +29,7 @@ export const updateItem = async (itemId, item) => {
     return await axios.put(
       `http://localhost:8080/api/v1.0/admin/items/${itemId}`,
       item,
-      { headers }
+      { headers },
     );
   }
   const headers = {
@@ -38,8 +38,8 @@ export const updateItem = async (itemId, item) => {
     Accept: "application/json",
   };
   return await axios.put(
-    `http://localhost:8080/api/v1.0/admin/items/${itemId}`,
+    `https://billing-software-backend-tv6i.onrender.com/api/v1.0/admin/items/${itemId}`,
     item,
-    { headers }
+    { headers },
   );
 };

@@ -4,14 +4,14 @@ export const addCategory = async (category) => {
   return await axios.post(
     "http://localhost:8080/api/v1.0/admin/categories",
     category,
-    { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
+    { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } },
   );
 };
 
 export const deleteCategory = async (categoryId) => {
   return await axios.delete(
     `http://localhost:8080/api/v1.0/admin/categories/${categoryId}`,
-    { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
+    { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } },
   );
 };
 
@@ -30,9 +30,9 @@ export const updateCategory = async (categoryId, category) => {
       Accept: "application/json",
     };
     return await axios.put(
-      `http://localhost:8080/api/v1.0/admin/categories/${categoryId}`,
+      `https://billing-software-backend-tv6i.onrender.com/api/v1.0/admin/categories/${categoryId}`,
       category,
-      { headers }
+      { headers },
     );
   }
   // For JSON payloads
@@ -42,8 +42,8 @@ export const updateCategory = async (categoryId, category) => {
     Accept: "application/json",
   };
   return await axios.put(
-    `http://localhost:8080/api/v1.0/admin/categories/${categoryId}`,
+    `https://billing-software-backend-tv6i.onrender.com/api/v1.0/admin/categories/${categoryId}`,
     category,
-    { headers }
+    { headers },
   );
 };
