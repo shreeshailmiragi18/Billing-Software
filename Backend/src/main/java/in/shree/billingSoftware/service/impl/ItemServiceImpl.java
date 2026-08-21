@@ -40,7 +40,9 @@ public class ItemServiceImpl implements ItemService {
         Files.createDirectories(uploadPath);
         Path targetLocation = uploadPath.resolve(filename);
         Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
-        String imgUrl = "http://localhost:8080/api/v1.0/uploads/"+filename;
+//        String imgUrl = "http://localhost:8080/api/v1.0/uploads/"+filename;
+        String imgUrl =
+                "https://billing-software-backend-tv6i.onrender.com/api/v1.0/uploads/" + filename;
          ItemEntity newItem = convertToEntity(request);
          CategoryEntity existingCategory = categoryRepository.findByCategoryId(request.getCategoryId())
                  .orElseThrow(()-> new RuntimeException("Category not found: "+request.getCategoryId()));
